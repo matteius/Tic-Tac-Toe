@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+<script type="text/javascript">
+function game_on() 
+{
+    var username = window.location=document.getElementById("username").value;
+    username = username.replace(/\s/g, "");
+    var difficulty = window.location=document.getElementById("difficulty").value;
+    if (difficulty == "Easy") {
+        document.location.href = "easy_game/" + username;
+    } else {
+        document.location.href = "game/" + username;
+    }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<h1>Welcome to Django Tic Tac Toe!</h1>
+<span>
+<b>Username:</b> <input type="text" id="username" name="username" /> <br />
+<b>Difficulty:</b> <select id="difficulty"><option>Insane</option><option>Easy</option></select><br /> 
+<b><a href="javascript:game_on()">Take me to the Game!</a></b><br />
+</span>
+<p><b>Please Note:</b> IF simultaneous users pick the username, they will collide in time and space, so perhas try another name?</p>  
+<p><b>Also Note:</b> Game state is stored for about 5 minutes, so if you accidently leave the site, feel free to remember your username.</p>
+{% endblock %}

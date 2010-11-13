@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Good Game, {{ user }}!</h2>
+
+<a href="/game/{{ user }}/new_game/">NEW GAME</a>
+
+{# Here we tell the user game outcome #}
+{% if outcome == 'lost' %}
+<h3>Sorry that you're a big looser ;-)</h3>
+{% endif %}
+{% if outcome == 'won' %}
+<h3>Congratulations You WIN!</h3>
+{% endif %}
+{% if outcome == 'cats' %}
+<h3>This one is for the cats ...</h3>
+{% endif %}
+
+<div class="container">
+<div class="board">
+{% for position in board %}
+    {% if forloop.counter == 1 or forloop.counter == 4 or forloop.counter == 7 %}
+        <div class="row">
+    {% endif %}
+    {% if forloop.counter0 in winner_row %}
+        <div class="winnerBox">
+    {% else %}
+        <div class="box">
+    {% endif %}
+        {{ position }}
+    </div>
+    {% if forloop.counter == 3 or forloop.counter == 6 or forloop.counter == 9 %}
+    </div>
+    {% endif %}
+{% endfor %}
+</div></div>
+
+{% if outcome == 'cats' %}
+<img src="/site_media/images/catsgame.jpg" />
+{% endif %}
+
+{% endblock %}
