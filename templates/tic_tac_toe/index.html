@@ -5,7 +5,12 @@
 function game_on() 
 {
     var username = window.location=document.getElementById("username").value;
+    // Remove any spaces from the username (not allowed)
     username = username.replace(/\s/g, "");
+    if (username == "") {
+        alert("Please enter a username first!");
+        return;
+    }
     var difficulty = window.location=document.getElementById("difficulty").value;
     if (difficulty == "Easy") {
         document.location.href = "easy_game/" + username;

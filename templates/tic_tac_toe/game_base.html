@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% block h2_msg %}
+<h2>Welcome to Tic-Tac-Toe, {{ user }}!</h2>
+{% endblock %}
+<p><b>Difficulty:</b> {{ difficulty }}</p>
+<a href="/game/{{ user }}/new_game/">NEW GAME</a><br />
+
+{% block extra_pre_board %}
+{% endblock %}
+
+<div class="container">
+<div class="board">
+{% for position in board %}
+    {% if forloop.counter == 1 or forloop.counter == 4 or forloop.counter == 7 %}
+    <div class="row">
+    {% endif %}
+    <div class="box">
+        {% if position == unplayed %}
+            <a href="/game/{{ user }}/move/{{ forloop.counter0 }}/">X</a>
+        {% else %}
+            {{ position }}
+        {% endif %}
+    </div>
+    {% if forloop.counter == 3 or forloop.counter == 6 or forloop.counter == 9 %}
+    </div>
+    {% endif %}
+{% endfor %}
+</div></div>
+{% block pre_footer %}
+{% endblock %}
+{% endblock %}

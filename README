@@ -1,5 +1,24 @@
-Intructions:
-1. Fork this repo on github.
-2. Create an app that can interactively play the game of Tic Tac Toe against another player and never lose.
-3. Commit early and often, with good messages.
-4. Push your code back to github and send me a pull request.
+README
+
+Author: Matt Davis
+Live Demo: http://tictactoe.geekshack.net/
+
+This is the README file for thid flavour of Tic-Tac-Toe Django.
+
+This is a django project Tic-Tac-Toe game.  The general approach was to develop a game.py file
+with a class for accessing a game instance and the available AI.  The tests.py file contains
+coverage testing for the TicTacToe game.  The website implements a human vs. computer interface
+using Django views and templates.  I choose to take the low-level Django cacheing API for a spin
+for it seemed the obvious decision for a tiny game like Tic-Tac-Toe.  I'm reminded of an arcade
+style game where state is destined to expire.  There is no need for the fancy overhead of sessions
+and authentication.  Despite the persistence of a SQLite database, a databae is not neccessary.
+Other features of this implementation:
+* In memory cacheing for quick access of game state
+* Folk without cookies could enjoy this Django game
+* Game state preserved on server for up to 10 minutes from user activity
+Possible sticking points:
+* Usernames are not protected and therefore it is possible two simultaenous users could foreseeably try
+    playing the game with the exact same username and collide in the cache.  We handle this in the UI suggesting
+    users try a differnt unique name in case of problems for the current version.
+* URLs alter game state (in cache) without POST however views handle boundary checks.
+

@@ -7,7 +7,7 @@ urlpatterns = patterns('',
     (r'^$', 'tic_tac_toe.views.index'),
     (r'^index.html$', 'tic_tac_toe.views.index'),
     
-    # Game view for tictactoe
+    # Game view for tictactoe (easy_game) sets the game up with easy difficulty
     url(r'^game/(?P<user>\w+)/$', 'tic_tac_toe.views.game', name='game-home'),
     url(r'^easy_game/(?P<user>\w+)/$', 'tic_tac_toe.views.game', 
         kwargs={'difficulty': 'easy'}, name='game-home-easy'),
@@ -22,10 +22,10 @@ urlpatterns = patterns('',
     # Reset game state for tictactoe
     (r'^game/(?P<user>\w+)/new_game/$', 'tic_tac_toe.views.new_game'),
     
-    # Change difficulty for tictacttoe
+    # URL to change difficulty for a tictacttoe session
     (r'^game/(?P<user>\w+)/change_difficulty/$', 'tic_tac_toe.views.change_difficulty'),
  
-    # For serving static media like CSS (for quick demoability)
+    # For serving static media like CSS (for quick demoability using runserver)
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': os.path.join(os.getcwd(), 'media'), 'show_indexes': True}),
 )

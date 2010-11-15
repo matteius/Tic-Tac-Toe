@@ -6,10 +6,13 @@ UNPLAYED = ' '
 PLAYER1 = 'X'
 PLAYER2 = 'O'
 
-
 class TicTacToe:
     """
-    Representation of a Tic Tac Toe game.
+    Representation of a Tic Tac Toe game with functions
+    for advancing the game through player input or built in AI, 
+    testing state and winning conditions.  Use function get_constants()
+    to get the tokens to use for player paramters and makring board state.
+    
     """
     
     def __init__(self):
@@ -20,6 +23,15 @@ class TicTacToe:
         """
         self.board = [UNPLAYED, UNPLAYED, UNPLAYED, UNPLAYED, UNPLAYED, 
             UNPLAYED, UNPLAYED, UNPLAYED, UNPLAYED]
+    # End Def
+    
+    def new_game(self):
+        """
+        Clear state of current game board
+        
+        """
+        for x in range(9):
+            self.board[x] = UNPLAYED
     # End Def
     
     def get_board(self):
@@ -33,12 +45,11 @@ class TicTacToe:
     def get_constants(self):
         """
         Returns a list of the constants used by TicTacToe.
-        [unplayed, player1, player2]
+        [UNPLAYED, PLAYER1, PLAYER2]
         
         """
         return [UNPLAYED, PLAYER1, PLAYER2]
     # End Def
-
 
     def winner(self):
         """
@@ -77,7 +88,9 @@ class TicTacToe:
 
     def move(self, position, player):
         """
-        Tries to make a move based on integer position for player.
+        Makes a move at @param (int)position for @param player.
+        Valid moves are: [0-8] and correspond to labeling the tic-tac-toe
+        board from left to right, top to bottom. 
         Returns True if move is successful otherwise returns False
         
         """
@@ -97,16 +110,18 @@ class TicTacToe:
 
     def undo_move(self, position):
         """
-        Function undoes the move at paramater position.Tries to undo a move.
-        Returns True when successful otherwise False
+        Function undoes the move at paramater position.
+        Returns True when a move is actually reversed, otherwise False.
         
         """
         # Bounds Check
         if position not in range(9):
             return False        
-        else:
+        elif self.board[position] != UNPLAYED:
             self.board[position] = UNPLAYED
             return True
+        else:
+            return False
     # End Def
 
     def get_valid_moves(self):
@@ -126,15 +141,16 @@ class TicTacToe:
     def player_weak_AI_move(self, player):
         """
         This function will make a randomized move for parameter player
-        based on the current board state.
+        based on the current board state. Returns True if move made,
+        otherwise returns False
         
         """
         moves = self.get_valid_moves()
-        # Mix up list for random results from AI
-        random.shuffle(moves)
-        # Move with the top result
-        self.move(moves.pop(), player)
-        return None
+        if moves:
+            # Mix up list for random results from AI and Move w/ the top result
+            random.shuffle(moves)
+            return self.move(moves.pop(), player)
+        return False
     # End Def
     
     def player_AI_move(self, player):
@@ -144,13 +160,13 @@ class TicTacToe:
         
         """
         moves = [(move, self.eval_move_wrapper(move, player)) for move in self.get_valid_moves()]
-        # Mix up list for less predictable results from AI
-        random.shuffle(moves)
-        # Line them up worst to best
-        moves.sort(key= lambda (position, outcome): outcome)
-        # Move with the best result
-        self.move(moves.pop()[0], player)
-        return None
+        if moves:
+            # Mix up list for less predictable results from AI
+            random.shuffle(moves)
+            # Line them up worst to best and move with best
+            moves.sort(key= lambda (position, outcome): outcome)
+            return self.move(moves.pop()[0], player)
+        return False
     # End Def    
     
     def opponent(self, player):

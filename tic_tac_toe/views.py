@@ -9,13 +9,13 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 
 from django.core.cache import cache
-from tictactoe.tic_tac_toe.game import TicTacToe
+from tic_tac_toe.game import TicTacToe
 
 
 
 def index(request):
     """
-    Main tic_tac_toe view for welcome and entering games
+    Main tic_tac_toe view for welcome and joining games.
     
     """
     # Specify template, generate context, and return response
@@ -26,7 +26,9 @@ def index(request):
 
 def game(request, user, difficulty='insane'):
     """
-    Main tic_tac_toe view for displaying current game
+    Main tic_tac_toe view for displaying current game.
+    @param difficulty by default is 'insane', but could be 'easy'.
+    Game state is stored in the localmem cache.
     
     """
     # Try to get game from the cache
@@ -54,8 +56,9 @@ def game(request, user, difficulty='insane'):
 
 def move(request, user, position):
     """
-    Main tic_tac_toe view for logic to perform
-    requested move and computer counter_move
+    Performs requested move of @param user at @parm position
+    and then performs the computer AI move and redirects back
+    to the game view or possibly game_over.
     
     """
     # Try to get game from the cache
@@ -100,7 +103,7 @@ def move(request, user, position):
 
 def new_game(request, user):
     """
-    Clear game state for the user and return tomain game view
+    Clear game state for the user game session and return to game view
     
     """
     # Try to get game from the cache
@@ -118,7 +121,7 @@ def new_game(request, user):
 
 def game_over(request, user):
     """
-    Game over view for the current user
+    Game over view for the current user game session
     
     """
     # Try to get game from the cache--Redirect to main if no game
@@ -155,7 +158,7 @@ def game_over(request, user):
 
 def change_difficulty(request, user):
     """
-    Game over view for the current user
+    Game over view for the current user game session
     
     """
     # Redirect to Game
