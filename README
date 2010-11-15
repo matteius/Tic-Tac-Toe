@@ -17,8 +17,7 @@ Other features of this implementation:
 * Folk without cookies could enjoy this Django game
 * Game state preserved on server for up to 10 minutes from user activity
 Possible sticking points:
-* Usernames are not protected and therefore it is possible two simultaenous users could foreseeably try
-    playing the game with the exact same username and collide in the cache.  We handle this in the UI suggesting
-    users try a differnt unique name in case of problems for the current version.
+* Usernames are not protected and therefore it is possible two simultaenous users could try
+    playing the game with the exact same username and collide in the cache.  
+    We suggest in the UI that users pick a unique name.
 * URLs alter game state (in cache) without POST however views handle boundary checks.
-
