@@ -17,7 +17,11 @@
     {% if forloop.counter == 1 or forloop.counter == 4 or forloop.counter == 7 %}
     <div class="row">
     {% endif %}
-    <div class="box">
+        {% if forloop.counter0 in winner_row %}
+            <div class="winnerBox">
+        {% else %}
+            <div class="box">
+        {% endif %}
         {% if position == unplayed %}
             <a href="/game/{{ user }}/move/{{ forloop.counter0 }}/">X</a>
         {% else %}
